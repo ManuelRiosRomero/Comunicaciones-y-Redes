@@ -1,51 +1,38 @@
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ManejadorCliente implements Runnable {
     private Socket cliente;
-    private PrintStream out;
-    private Scanner in;
+    private BufferedReader in;
+    private PrintWriter out;
 
     public ManejadorCliente(Socket socketCliente) throws IOException {
         this.cliente = socketCliente;
-        // recibir inputs del cliente
-        Scanner scan = new Scanner(System.in);
-        // enviar al servidor
-        PrintStream out = new PrintStream(socketCliente.getOutputStream());
-        // recibir del servidor
-        Scanner in = new Scanner(socketCliente.getInputStream());
+        in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+        out = new PrintWriter(cliente.getOutputStream(), true);
     }
 
     @Override
     public void run() {
-        while (true) {
+        try {
+            while (true) {
+                String solicitud = in.readLine();
+                if (solicitud.equals("comando 1")) {
+                    out.println("se entro al comando 1");
+                } else {
+                    out.println("Comandos Aceptados: \n 'Comando 1' ");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("IOException en ManejadorCliente");
+            System.err.println(e.getStackTrace());
+        } finally {
+            out.close();
             try {
-                while (true) {
-                    String solicitud = in.nextLine();
-
-                    if (solicitud.contains("multiplicar")) {
-
-                    } else {
-                        System.out.println("[Servidor] Los comandos disponibles son: multiplicar");
-                    }
-                    // Enviar al cliente
-                    out.println();
-                }
-            } finally {
-                // Cerrar el servidor
-                System.out.println("[Manejador Clientes] Cerrando Manejador Cliente...");
-
-                try {
-                    cliente.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
                 in.close();
-                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
-
 }

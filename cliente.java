@@ -15,32 +15,22 @@ public class cliente {
         // Crear el socket de cliente ("direccion ip", puerto)
         // "localhost" en misma maquina.... IP compu personal 192.168.20.21
         Socket socket = new Socket(IpServidor, PuertoServidor);
-        // recibir inputs del cliente
-        Scanner scan = new Scanner(System.in);
-        // enviar al servidor
-        PrintStream out = new PrintStream(socket.getOutputStream());
-        // recibir del servidor
-        Scanner in = new Scanner(socket.getInputStream());
+        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
         // ciclo de comunicacion cliente servidor
         while (true) {
-            System.out.println("> ");
-            String comando = scan.nextLine();
-            if (comando.equals("salir")) {
+            System.out.println("\n> ");
+            String comando = keyboard.readLine();
+            if (comando.equals("salir"))
                 break;
-            } else {
-                comando = scan.nextLine();
-                // enviar comando al servidor
-                out.println(comando);
-            }
-            String respuesta = in.nextLine();
-            System.out.println(respuesta);
-        }
+            out.println(comando);
 
-        // terminar cliente
+            String respuestaServidor = input.readLine();
+            System.out.print("Respuesta del Servidor: " + respuestaServidor);
+        }
         socket.close();
-        scan.close();
-        in.close();
-        out.close();
+        System.exit(0);
     }
 }
