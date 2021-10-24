@@ -5,7 +5,6 @@
 */
 import java.net.*;
 import java.io.*;
-import java.util.Scanner;
 
 public class cliente {
     private static final String IpServidor = "LocalHost";
