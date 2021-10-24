@@ -8,22 +8,29 @@ import java.io.*;
 import java.util.Scanner;
 
 public class cliente {
+    private static final String IpServidor = "LocalHost";
+    private static final int PuertoServidor = 4999;
+
     public static void main(String[] args) throws IOException {
         // Crear el socket de cliente ("direccion ip", puerto)
-        Socket socket = new Socket("localhost", 4999);
+        // "localhost" en misma maquina.... IP compu personal 192.168.20.21
+        Socket socket = new Socket(IpServidor, PuertoServidor);
+        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-        // recibir inputs del cliente
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Ingresa un numero: ");
-        int numero = scan.nextInt();
+        // ciclo de comunicacion cliente servidor
+        while (true) {
+            System.out.println("\n> ");
+            String comando = keyboard.readLine();
+            if (comando.equals("salir"))
+                break;
+            out.println(comando);
 
-        // enviar el numero al servidor
-        PrintStream p = new PrintStream(socket.getOutputStream());
-        p.println(numero);
-
-        // recibir del servidor servidor
-        Scanner scanAux = new Scanner(socket.getInputStream());
-        int temp = scanAux.nextInt();
-        System.out.println(temp);
+            String respuestaServidor = input.readLine();
+            System.out.print("Respuesta del Servidor: " + respuestaServidor);
+        }
+        socket.close();
+        System.exit(0);
     }
 }
