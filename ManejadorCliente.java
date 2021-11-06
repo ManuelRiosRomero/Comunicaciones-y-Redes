@@ -19,8 +19,11 @@ public class ManejadorCliente implements Runnable {
                 String solicitud = in.readLine();
                 if (solicitud.equals("comando 1")) {
                     out.println("se entro al comando 1");
+                }
+                if (solicitud.equals("comando 2")) {
+                    out.println("se entro al comando 2");
                 } else {
-                    out.println("Comandos Aceptados: \n 'Comando 1' ");
+                    out.println("Comandos Aceptados:  'Comando 1', 'comando 2' ");
                 }
             }
         } catch (IOException e) {

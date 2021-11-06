@@ -24,6 +24,7 @@ public class servidor {
             System.out.println("[Servidor] Esperando Cliente...");
             Socket cliente = listener.accept();
             System.out.println("[Servidor] Cliente Conectado");
+            
             ManejadorCliente threadsCliente = new ManejadorCliente(cliente);
             clientes.add(threadsCliente);
             pool.execute(threadsCliente);
