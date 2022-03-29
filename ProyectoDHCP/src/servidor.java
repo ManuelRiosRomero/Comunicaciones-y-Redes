@@ -24,13 +24,11 @@ public class servidor {
             System.out.println("[Servidor] Esperando Cliente...");
             Socket cliente = listener.accept();
             System.out.println("[Servidor] Cliente Conectado");
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
             ManejadorCliente threadsCliente = new ManejadorCliente(cliente);
             clientes.add(threadsCliente);
             pool.execute(threadsCliente);
         }
+        //taskkill -pid Puerto /f;
     }
 }

@@ -19,19 +19,15 @@ public class ManejadorCliente implements Runnable {
         try {
             while (true) {
                 String solicitud = in.readLine();
-<<<<<<< Updated upstream
-                if (solicitud.equals("comando 1")) {
-                    out.println("se entro al comando 1");
-=======
                 if (solicitud.equals("nueva_IP")) {
+                    out.println("se entro al comando de dar ips");
                     String direccion = IPs("darIP");
                     out.println(direccion);
                 }
                 if (solicitud.equals("comando 2")) {
                     out.println("se entro al comando 2");
->>>>>>> Stashed changes
                 } else {
-                    out.println("Comandos Aceptados: \n 'Comando 1' ");
+                    out.println("Comandos Aceptados:  'Comando 1', 'comando 2' ");
                 }
             }
         } catch (IOException e) {
@@ -61,33 +57,41 @@ public class ManejadorCliente implements Runnable {
             if (ip1 == true) {
                 direccionIP = Direcciones[0];
                 ip1 = false;
+                return direccionIP;
             }
             if (ip2 == true) {
                 direccionIP = Direcciones[1];
                 ip2 = false;
+                return direccionIP;
             }
             if (ip3 == true) {
                 direccionIP = Direcciones[2];
                 ip3 = false;
+                return direccionIP;
             }
             if (ip4 == true) {
                 direccionIP = Direcciones[3];
                 ip4 = false;
+                return direccionIP;
             }
         }
 
         else {
             if (comando.equals(Direcciones[0])) {
                 ip1 = true;
+                return null;
             }
             if (comando.equals(Direcciones[1])) {
                 ip2 = true;
+                return null;
             }
             if (comando.equals(Direcciones[2])) {
                 ip3 = true;
+                return null;
             }
             if (comando.equals(Direcciones[3])) {
                 ip4 = true;
+                return null;
             }
 
         }

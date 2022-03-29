@@ -5,7 +5,6 @@
 */
 import java.net.*;
 import java.io.*;
-import java.util.Scanner;
 
 public class cliente {
     private static final String IpServidor = "LocalHost";
@@ -18,22 +17,15 @@ public class cliente {
         // Crear el socket de cliente ("direccion ip", puerto)
         // "localhost" en misma maquina.... IP compu personal 192.168.20.21
         Socket socket = new Socket(IpServidor, PuertoServidor);
-<<<<<<< Updated upstream
-=======
         // manejador del tiempo limite del cliente
         socket.setSoTimeout(60 * 1000);
 
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
->>>>>>> Stashed changes
         BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-<<<<<<< Updated upstream
-=======
         System.out.println("\nIngrese el comando 'ayuda' para ver los comandos...");
 
->>>>>>> Stashed changes
         // ciclo de comunicacion cliente servidor
 
         try {
@@ -41,11 +33,13 @@ public class cliente {
                 System.out.println("\n> ");
                 String comando = keyboard.readLine();
 
-                String respuestaServidor = input.readLine();
+                String respuestaServidor = "";
 
                 // ------Comando Asignar IPs---------
                 if (comando.equals("nueva_IP")) {
+                    System.out.print("Entro al comando de IPS");
                     out.println(comando);
+                    respuestaServidor = input.readLine();
                     IpAddress = String.valueOf(respuestaServidor);
                     System.out.print("Dirección IP recibida: " + respuestaServidor);
                     System.out.print("Dirección IP almacenada: " + IpAddress);
